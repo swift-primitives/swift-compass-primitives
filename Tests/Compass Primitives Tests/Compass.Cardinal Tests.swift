@@ -1,0 +1,68 @@
+// Compass.Cardinal Tests.swift
+
+import Testing
+
+import Compass_Primitives
+
+// MARK: - Compass.Cardinal - Semantics
+
+@Suite
+struct `Compass.Cardinal - Semantics` {
+    @Test
+    func `opposite swaps along each axis`() {
+        #expect(Compass.Cardinal.north.opposite == .south)
+        #expect(Compass.Cardinal.south.opposite == .north)
+        #expect(Compass.Cardinal.east.opposite == .west)
+        #expect(Compass.Cardinal.west.opposite == .east)
+    }
+
+    @Test
+    func `clockwise cycles north to east to south to west`() {
+        #expect(Compass.Cardinal.north.clockwise == .east)
+        #expect(Compass.Cardinal.east.clockwise == .south)
+        #expect(Compass.Cardinal.south.clockwise == .west)
+        #expect(Compass.Cardinal.west.clockwise == .north)
+    }
+
+    @Test
+    func `counterclockwise inverts clockwise`() {
+        for c in Compass.Cardinal.allCases {
+            #expect(c.clockwise.counterclockwise == c)
+        }
+    }
+
+    @Test
+    func `opposite is involution`() {
+        for c in Compass.Cardinal.allCases {
+            #expect(c.opposite.opposite == c)
+        }
+    }
+}
+
+// MARK: - Compass.Cardinal - CaseIterable
+
+@Suite
+struct `Compass.Cardinal - CaseIterable` {
+    @Test
+    func `allCases has four directions in clockwise order`() {
+        #expect(Compass.Cardinal.allCases == [.north, .east, .south, .west])
+    }
+}
+
+// MARK: - Compass.Cardinal - Conformances
+
+@Suite
+struct `Compass.Cardinal - Conformances` {
+    @Test
+    func `Hashable distinguishes the four directions`() {
+        let set: Set<Compass.Cardinal> = [.north, .east, .south, .west, .north]
+        #expect(set.count == 4)
+    }
+
+    @Test
+    func `Comparison orders clockwise`() {
+        #expect(Compass.Cardinal.north < .east)
+        #expect(Compass.Cardinal.east < .south)
+        #expect([Compass.Cardinal.west, .north, .south, .east].sorted() == [.north, .east, .south, .west])
+    }
+}
