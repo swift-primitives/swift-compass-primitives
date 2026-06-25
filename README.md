@@ -1,24 +1,103 @@
-# swift-compass-primitives
+# Compass Primitives
 
-Compass-bearing named views for the Swift Institute primitives layer.
+![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-`Compass.Cardinal` is the four cardinal directions (north/east/south/west) in clockwise
-canonical order — a thin named view over the `Facet<2>` and `Cyclic.Group.Static<4>`
-carriers, with its own identity (a compass bearing, distinct from `Boundary.Edge` over the
-same `Facet<2>` carrier).
+Cardinal compass directions for Swift — `Compass.Cardinal` (north, east, south, west) in clockwise canonical order, with rotation, opposites, and ordering, and zero platform dependencies.
+
+---
+
+## Quick Start
+
+`Compass.Cardinal` is the four cardinal directions as a named view over the points of the compass: a payload-less enum whose canonical case order is the clockwise bearing north → east → south → west. It carries the directional vocabulary — turning, reversing, enumerating, ordering — without pulling in any geometry or platform machinery.
 
 ```swift
 import Compass_Primitives
 
-Compass.Cardinal.north.opposite       // .south
-Compass.Cardinal.north.clockwise      // .east
-Array(Compass.Cardinal.allCases)      // [.north, .east, .south, .west]
+let heading = Compass.Cardinal.north
+
+heading.opposite          // .south
+heading.clockwise         // .east
+heading.counterclockwise  // .west
+
+// Turn right (clockwise) three times, starting from north.
+var bearing = Compass.Cardinal.north
+for _ in 0..<3 { bearing = bearing.clockwise }
+print(bearing)            // west
 ```
 
-The lossless carrier projections (`.facet`, `.cyclic`) live in the per-carrier bridge
-packages `swift-compass-facet-primitives` and `swift-compass-cyclic-primitives`, so a
-consumer of the bare enum pays for neither.
+`allCases` is the clockwise sequence, and ordering follows the same clockwise rank — so directions sort and hash by bearing:
+
+```swift
+import Compass_Primitives
+
+Array(Compass.Cardinal.allCases)            // [.north, .east, .south, .west]
+
+[Compass.Cardinal.west, .south, .north, .east].sorted()
+// [.north, .east, .south, .west]
+
+let visited: Set<Compass.Cardinal> = [.north, .east, .north]
+visited.count                               // 2
+```
+
+`Compass.Cardinal` conforms to `CaseIterable` and `Sendable`, is `Codable` outside Embedded, and witnesses the institute `Equation` / `Hash` / `Comparison` protocol twins alongside the stdlib `Equatable` / `Hashable` / `Comparable` conformances.
+
+---
+
+## Installation
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/swift-primitives/swift-compass-primitives.git", branch: "main")
+]
+```
+
+```swift
+.target(
+    name: "App",
+    dependencies: [
+        .product(name: "Compass Primitives", package: "swift-compass-primitives"),
+    ]
+)
+```
+
+Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 (or the matching Linux / Windows toolchain).
+
+---
+
+## Architecture
+
+Import the `Compass Primitives` umbrella for the type plus every conformance, or depend on a single sub-namespace target to pay for only the conformance you need.
+
+| Product | Target | Purpose |
+|---------|--------|---------|
+| `Compass Primitive` | `Sources/Compass Primitive/` | The `Compass` namespace and `Compass.Cardinal`: the four directions, `.opposite` / `.clockwise` / `.counterclockwise`, and the `==` / `<` / `hash(into:)` witnesses. Zero dependencies. |
+| `Compass Equation Primitives` | `Sources/Compass Equation Primitives/` | Conforms `Compass.Cardinal` to the institute `Equation.Protocol` twin. |
+| `Compass Hash Primitives` | `Sources/Compass Hash Primitives/` | Conforms `Compass.Cardinal` to the institute `Hash.Protocol` twin. |
+| `Compass Comparison Primitives` | `Sources/Compass Comparison Primitives/` | Conforms `Compass.Cardinal` to the institute `Comparison.Protocol` twin, ordered by clockwise rank. |
+| `Compass Primitives` | `Sources/Compass Primitives/` | Umbrella: re-exports the namespace and all three conformance modules. |
+| `Compass Primitives Test Support` | `Tests/Support/` | Re-exports the umbrella for test consumers. |
+
+Foundation-free.
+
+---
+
+## Platform Support
+
+| Platform | Status |
+|----------|--------|
+| macOS 26 | Full support |
+| Linux | Full support |
+| Windows | Full support |
+| iOS / tvOS / watchOS / visionOS | Supported |
+
+---
+
+## Community
+
+<!-- BEGIN: discussion -->
+<!-- Discussion thread created at publication. -->
+<!-- END: discussion -->
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE.md).
+Apache 2.0. See [LICENSE.md](LICENSE.md).

@@ -1,8 +1,7 @@
 // Compass.Cardinal Tests.swift
 
-import Testing
-
 import Compass_Primitives
+import Testing
 
 // MARK: - Compass.Cardinal - Semantics
 

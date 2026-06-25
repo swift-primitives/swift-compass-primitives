@@ -5,7 +5,7 @@
 // the root (Compass.Cardinal.swift). On Swift 6.4+ Equation.Protocol is a typealias to
 // Swift.Equatable per SE-0499. No gated stdlib shim (the implicit Equatable covers it).
 
-public import Equation_Primitives
 public import Compass_Primitive
+public import Equation_Primitives
 
 extension Compass.Cardinal: Equation.`Protocol` {}

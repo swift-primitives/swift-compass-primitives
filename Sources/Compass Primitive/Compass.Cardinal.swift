@@ -78,31 +78,37 @@ extension Compass.Cardinal {
         }
     }
 
+    /// Whether two cardinal directions are the same direction.
     @inlinable
     public static func == (lhs: Compass.Cardinal, rhs: Compass.Cardinal) -> Bool {
         lhs._rank == rhs._rank
     }
 
+    /// Whether the left direction precedes the right in clockwise rank (north < east < south < west).
     @inlinable
     public static func < (lhs: Compass.Cardinal, rhs: Compass.Cardinal) -> Bool {
         lhs._rank < rhs._rank
     }
 
+    /// Whether the left direction precedes or equals the right in clockwise rank.
     @inlinable
     public static func <= (lhs: Compass.Cardinal, rhs: Compass.Cardinal) -> Bool {
         lhs._rank <= rhs._rank
     }
 
+    /// Whether the left direction follows the right in clockwise rank.
     @inlinable
     public static func > (lhs: Compass.Cardinal, rhs: Compass.Cardinal) -> Bool {
         lhs._rank > rhs._rank
     }
 
+    /// Whether the left direction follows or equals the right in clockwise rank.
     @inlinable
     public static func >= (lhs: Compass.Cardinal, rhs: Compass.Cardinal) -> Bool {
         lhs._rank >= rhs._rank
     }
 
+    /// Feeds the direction's clockwise rank into the given hasher.
     @inlinable
     public func hash(into hasher: inout Hasher) {
         hasher.combine(_rank)
