@@ -7,6 +7,12 @@ import Testing
 
 @Suite
 struct `Compass.Cardinal - Semantics` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
+
+extension `Compass.Cardinal - Semantics`.Unit {
     @Test
     func `opposite swaps along each axis`() {
         #expect(Compass.Cardinal.north.opposite == .south)
@@ -42,6 +48,12 @@ struct `Compass.Cardinal - Semantics` {
 
 @Suite
 struct `Compass.Cardinal - CaseIterable` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
+
+extension `Compass.Cardinal - CaseIterable`.Unit {
     @Test
     func `allCases has four directions in clockwise order`() {
         #expect(Compass.Cardinal.allCases == [.north, .east, .south, .west])
@@ -52,6 +64,12 @@ struct `Compass.Cardinal - CaseIterable` {
 
 @Suite
 struct `Compass.Cardinal - Conformances` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
+
+extension `Compass.Cardinal - Conformances`.Unit {
     @Test
     func `Hashable distinguishes the four directions`() {
         let set: Set<Compass.Cardinal> = [.north, .east, .south, .west, .north]
