@@ -72,7 +72,7 @@ let package = Package(
         .target(
             name: "Compass Primitives Test Support",
             dependencies: [
-                "Compass Primitives",
+                "Compass Primitives"
             ],
             path: "Tests/Support"
         ),
