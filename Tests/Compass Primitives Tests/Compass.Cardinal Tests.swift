@@ -80,6 +80,10 @@ extension `Compass.Cardinal - Conformances`.Unit {
     func `Comparison orders clockwise`() {
         #expect(Compass.Cardinal.north < .east)
         #expect(Compass.Cardinal.east < .south)
-        #expect([Compass.Cardinal.west, .north, .south, .east].sorted() == [.north, .east, .south, .west])
+        #expect(
+            [Compass.Cardinal.west, .north, .south, .east].sorted() == [
+                .north, .east, .south, .west,
+            ]
+        )
     }
 }
