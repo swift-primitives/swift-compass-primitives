@@ -1,9 +1,5 @@
-// Compass.Cardinal Tests.swift
-
 import Compass_Primitives
 import Testing
-
-// MARK: - Compass.Cardinal - Semantics
 
 @Suite
 struct `Compass.Cardinal - Semantics` {
@@ -44,8 +40,6 @@ extension `Compass.Cardinal - Semantics`.Unit {
     }
 }
 
-// MARK: - Compass.Cardinal - CaseIterable
-
 @Suite
 struct `Compass.Cardinal - CaseIterable` {
     @Suite struct Unit {}
@@ -59,8 +53,6 @@ extension `Compass.Cardinal - CaseIterable`.Unit {
         #expect(Compass.Cardinal.allCases == [.north, .east, .south, .west])
     }
 }
-
-// MARK: - Compass.Cardinal - Conformances
 
 @Suite
 struct `Compass.Cardinal - Conformances` {

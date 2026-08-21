@@ -11,18 +11,15 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        // MARK: - Namespace
+
         .library(name: "Compass Primitive", targets: ["Compass Primitive"]),
 
-        // MARK: - Sub-namespace targets
         .library(name: "Compass Equation Primitives", targets: ["Compass Equation Primitives"]),
         .library(name: "Compass Hash Primitives", targets: ["Compass Hash Primitives"]),
         .library(name: "Compass Comparison Primitives", targets: ["Compass Comparison Primitives"]),
 
-        // MARK: - Umbrella
         .library(name: "Compass Primitives", targets: ["Compass Primitives"]),
 
-        // MARK: - Test Support
         .library(
             name: "Compass Primitives Test Support",
             targets: ["Compass Primitives Test Support"]
@@ -43,10 +40,9 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Namespace (zero external dependencies — [MOD-017]; CaseIterable is stdlib)
+
         .target(name: "Compass Primitive", dependencies: []),
 
-        // MARK: - Sub-namespace targets (per [MOD-031]): institute Equatable/Hashable/Comparable twins
         .target(
             name: "Compass Equation Primitives",
             dependencies: [
@@ -69,7 +65,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Umbrella
         .target(
             name: "Compass Primitives",
             dependencies: [
@@ -80,7 +75,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Test Support
         .target(
             name: "Compass Primitives Test Support",
             dependencies: [
@@ -89,7 +83,6 @@ let package = Package(
             path: "Tests/Support"
         ),
 
-        // MARK: - Tests
         .testTarget(
             name: "Compass Primitives Tests",
             dependencies: [
